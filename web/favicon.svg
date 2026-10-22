@@ -1,7 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
-  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)"/>
-  <rect x="25" y="11" width="14" height="26" rx="7" fill="#fff"/>
-  <path d="M19 30a13 13 0 0 0 26 0" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
-  <path d="M32 43v7M24.5 52h15" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><defs>
+  <linearGradient id="body" x1="0" x2="1"><stop offset="0" stop-color="#7b7468"/><stop offset=".32" stop-color="#e6e0d3"/><stop offset=".55" stop-color="#c8c1b2"/><stop offset="1" stop-color="#7f786c"/></linearGradient>
+  <linearGradient id="head" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>
+  <pattern id="mesh" width="6.5" height="6.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="6.5" height="6.5" fill="#2b2824"/><path d="M0 0H6.5M0 0V6.5" stroke="#e2ddd3" stroke-width="1.9"/>
+  </pattern>
+  <linearGradient id="enamel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4ecda"/><stop offset="1" stop-color="#d4c6a8"/></linearGradient>
+  <radialGradient id="bakelite" cx=".5" cy=".38" r=".7"><stop offset="0" stop-color="#3a2f25"/><stop offset="1" stop-color="#120d09"/></radialGradient>
+  <radialGradient id="vu" cx=".5" cy="1" r="1"><stop offset="0" stop-color="#ffe7b0"/><stop offset=".75" stop-color="#e8aa4c"/><stop offset="1" stop-color="#b8782a"/></radialGradient>
+  <linearGradient id="walnut" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4f2e"/><stop offset=".5" stop-color="#5a3820"/><stop offset="1" stop-color="#3e2614"/></linearGradient>
+  <radialGradient id="ledGlow"><stop offset="0" stop-color="#9dff7a" stop-opacity=".9"/><stop offset="1" stop-color="#58e03a" stop-opacity="0"/></radialGradient></defs>
+    <rect x="10" y="10" width="236" height="236" rx="54" fill="url(#enamel)"/>
+    <rect x="10" y="10" width="236" height="236" rx="54" fill="none" stroke="#9c8c6e" stroke-width="5"/>
+    <circle cx="128" cy="128" r="98" fill="url(#bakelite)"/>
+    <circle cx="128" cy="128" r="98" fill="none" stroke="#d8641c" stroke-width="7"/>
+    <circle cx="128" cy="128" r="88" fill="none" stroke="#ffb23e" stroke-width="1.5" opacity=".5"/>
+    <g transform="translate(79.76470588235294 46) scale(0.9647058823529412 0.9647058823529412)">
+    <path d="M20 64V25Q20 8 37 8H63Q80 8 80 25V64Z" fill="url(#mesh)"/>
+    <path d="M20 64V25Q20 8 37 8H63Q80 8 80 25V64Z" fill="url(#head)"/>
+    <path d="M20 64V25Q20 8 37 8H63Q80 8 80 25V64Z" fill="none" stroke="#efe9dd" stroke-width="3.2"/>
+    <path d="M20 64H80L76.5 154Q76 160 70 160H30Q24 160 23.5 154Z" fill="url(#body)"/>
+    <path d="M20.5 65H79.5" stroke="#fffaf0" stroke-width="1.6" opacity=".8"/>
+    
+    <rect x="37" y="71" width="26" height="3.4" rx="1" fill="#2d2a25"/>
+    <rect x="40" y="85.5" width="20" height="2.4" rx="1" fill="#3b3731"/>
+    <path d="M21.6 95H78.4M21.7 99.5H78.3" stroke="#5f594e" stroke-width="1.3"/>
+    <path d="M21.6 96.3H78.4M21.7 100.8H78.3" stroke="#fff7ea" stroke-width=".9" opacity=".7"/>
+    <circle cx="50" cy="143" r="4.2" fill="#2a2724" stroke="#e8e2d6" stroke-width="1.6"/>
+    <circle cx="50" cy="79" r="7" fill="url(#ledGlow)"/>
+    <circle cx="50" cy="79" r="2.6" fill="#8dff66"/>
+    <rect x="27" y="159" width="46" height="11" rx="2.5" fill="#141210"/></g></svg>

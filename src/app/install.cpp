@@ -789,6 +789,7 @@ int RunInstall(const std::vector<std::wstring>& extraEndpoints) {
   WriteUninstallEntry(exe);
   for (const std::wstring& lnk : {StartMenuShortcut(), DesktopShortcut()})
     if (!lnk.empty()) CreateShortcut(lnk, exe, L"--open");
+  SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nullptr, nullptr);  // shortcuts pick up a new icon at once
 
   const bool started = StartAudio();
   ILog("install finished, audio restarted: %s", started ? "yes" : "no");
