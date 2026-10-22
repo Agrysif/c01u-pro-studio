@@ -273,6 +273,14 @@ void Controller::onTimer() {
 
 // ------------------------------------------------------------------ tray
 void Controller::openUi() {
+  // the panel window is open already: bring it to the front instead of opening another one
+  HWND open = nullptr;
+  EnumWindows(FindUiWindow, (LPARAM)&open);
+  if (open) {
+    if (IsIconic(open)) ShowWindow(open, SW_RESTORE);
+    SetForegroundWindow(open);
+    return;
+  }
   wchar_t url[64];
   swprintf_s(url, L"http://127.0.0.1:%d/", http_.port());
   // a chromeless app window if Edge or Chrome is around, otherwise the default browser

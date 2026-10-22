@@ -327,6 +327,9 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int) {
     if (other && !args.handoff) {
       if (args.background) return 0;
       std::wstring ver = MS_VERSION_WSTR;
+      DWORD otherPid = 0;
+      GetWindowThreadProcessId(other, &otherPid);
+      AllowSetForegroundWindow(otherPid);  // it may bring an open panel window to the front
       COPYDATASTRUCT cds = {kCopyOpen, (DWORD)((ver.size() + 1) * sizeof(wchar_t)), (PVOID)ver.c_str()};
       DWORD_PTR result = 0;
       SendMessageTimeoutW(other, WM_COPYDATA, 0, (LPARAM)&cds, SMTO_ABORTIFHUNG, 3000, &result);

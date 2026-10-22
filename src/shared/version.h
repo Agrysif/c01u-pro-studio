@@ -2,10 +2,10 @@
 
 #define MS_VERSION_MAJOR 1
 #define MS_VERSION_MINOR 0
-#define MS_VERSION_PATCH 0
-#define MS_VERSION_STR   "1.0.0"
-#define MS_VERSION_WSTR  L"1.0.0"
-#define MS_VERSION_RC    1,0,0,0
+#define MS_VERSION_PATCH 1
+#define MS_VERSION_STR   "1.0.1"
+#define MS_VERSION_WSTR  L"1.0.1"
+#define MS_VERSION_RC    1,0,1,0
 
 #define MS_PRODUCT_NAME   L"C01U Pro Studio"
 #define MS_PRODUCT_NAME_A "C01U Pro Studio"
