@@ -1,0 +1,39 @@
+#include <winver.h>
+#include <winuser.h>
+#include "resource.h"
+#include "../shared/version.h"
+
+IDI_APP        ICON "../../assets/icons/app.ico"
+IDI_TRAY       ICON "../../assets/icons/tray.ico"
+IDI_TRAY_MUTED ICON "../../assets/icons/tray_muted.ico"
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "app.manifest"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION MS_VERSION_RC
+ PRODUCTVERSION MS_VERSION_RC
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", MS_PUBLISHER
+            VALUE "FileDescription", "C01U Pro Studio - driver and control panel for Samson C01U Pro"
+            VALUE "FileVersion", MS_VERSION_STR
+            VALUE "InternalName", "C01UProStudio"
+            VALUE "LegalCopyright", MS_COPYRIGHT
+            VALUE "OriginalFilename", "C01UProStudio.exe"
+            VALUE "ProductName", MS_PRODUCT_NAME
+            VALUE "ProductVersion", MS_VERSION_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

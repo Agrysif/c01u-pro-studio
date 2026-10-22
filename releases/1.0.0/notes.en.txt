@@ -1,0 +1,4 @@
+First public release.
+System-wide voice processing in Windows: noise suppression, gate, equalizer, compressor, de-esser, limiter and voice effects.
+A 1970s studio style control panel, monitoring, A/B test, diagnostics, 25 languages.
+Automatic updates from GitHub, verified with a digital signature.

@@ -1,0 +1,20 @@
+# Build output
+build/
+dist/
+
+# Signing keys never go into the repository (they live in %USERPROFILE%\.c01u-pro-studio)
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Tools installed for screenshots
+node_modules/
+package.json
+package-lock.json
+
+# Editors
+.vs/
+.vscode/
+*.user
+.claude/

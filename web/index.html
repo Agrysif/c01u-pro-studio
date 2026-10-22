@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C01U Pro Studio</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 12h3l3-8 4 16 3-8h5"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-eq" viewBox="0 0 24 24"><path d="M2 16c3 0 3-8 6-8s3 10 6 10 3-12 8-12"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/></symbol>
+    <symbol id="i-ab" viewBox="0 0 24 24"><circle cx="7" cy="12" r="4.5"/><circle cx="17" cy="12" r="4.5"/><path d="M7 16.5h10"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h5"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></symbol>
+    <symbol id="i-mic-off" viewBox="0 0 24 24"><path d="M15 9.3V5a3 3 0 0 0-5.7-1.3M9 9v2a3 3 0 0 0 5 2.2M19 11a7 7 0 0 1-1.2 3.9M5 11a7 7 0 0 0 11 5.7M12 18v3M8 21h8M3 3l18 18"/></symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 4h3v16H7zM14 4h3v16h-3z" fill="currentColor"/></symbol>
+    <symbol id="i-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+    <symbol id="i-wand" viewBox="0 0 24 24"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8l1.4 1.4M17.8 6.2l1.4-1.4M12.2 6.2l-1.4-1.4"/><path d="M15 9L3 21"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  </defs>
+</svg>
+
+<div class="app" id="app">
+  <aside class="side" id="side">
+    <div class="badge">
+      <div class="badge-logo"><svg><use href="#i-mic"/></svg></div>
+      <div class="badge-text"><b>C01U PRO</b><span>STUDIO</span><small>VOICE PROCESSOR · MODEL 1</small></div>
+    </div>
+    <nav class="nav" id="nav">
+      <a data-page="overview"><i class="lamp"></i><span data-i18n="nav.overview"></span></a>
+      <a data-page="processing"><i class="lamp"></i><span data-i18n="nav.processing"></span></a>
+      <a data-page="eq"><i class="lamp"></i><span data-i18n="nav.eq"></span></a>
+      <a data-page="fx"><i class="lamp"></i><span data-i18n="nav.fx"></span></a>
+      <a data-page="ab"><i class="lamp"></i><span data-i18n="nav.ab"></span></a>
+      <a data-page="diag"><i class="lamp"></i><span data-i18n="nav.diag"></span><i class="nav-badge" id="diagBadge" hidden></i></a>
+      <a data-page="guide"><i class="lamp"></i><span data-i18n="nav.guide"></span></a>
+      <a data-page="settings"><i class="lamp"></i><span data-i18n="nav.settings"></span></a>
+    </nav>
+    <div class="side-foot">
+      <div class="drv-pill" id="drvPill"><i class="lamp"></i><span></span></div>
+      <button class="lang-btn" id="langBtn" type="button"><svg><use href="#i-globe"/></svg><span id="langName"></span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <button class="key icon-only only-narrow" id="menuBtn" type="button" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
+      <h1 class="plate" id="pageTitle"></h1>
+      <div class="top-actions">
+        <button class="key" id="btnMonitor" type="button"><i class="lamp"></i><svg><use href="#i-headphones"/></svg><span data-i18n="top.monitor"></span></button>
+        <button class="key" id="btnBypass" type="button"><i class="lamp green"></i><svg><use href="#i-power"/></svg><span data-i18n="top.processing"></span></button>
+        <button class="key mute" id="btnMute" type="button"><i class="lamp red"></i><svg><use href="#i-mic"/></svg><span data-i18n="top.mute"></span></button>
+        <button class="key icon-only" id="btnTheme" type="button" aria-label="Theme"><svg><use href="#i-moon"/></svg></button>
+      </div>
+    </header>
+
+    <div class="banner" id="banner" hidden></div>
+    <div class="content" id="content">
+
+      <!-- Overview -->
+      <section class="page" data-page="overview">
+        <div class="card deck">
+          <div class="deck-head">
+            <div class="nameplate">
+              <small data-i18n="ov.microphone"></small>
+              <b id="micName">—</b>
+            </div>
+            <div class="chips" id="micChips"></div>
+            <button class="key primary" id="btnWizard" type="button"><svg><use href="#i-wand"/></svg><span data-i18n="ov.smartSetup"></span></button>
+          </div>
+          <div class="deck-body">
+            <div class="vu-pair">
+              <figure class="vu"><canvas id="vuIn" height="168"></canvas><figcaption><span data-i18n="ov.input"></span><output class="lcd" id="vIn">—</output></figcaption></figure>
+              <figure class="vu"><canvas id="vuOut" height="168"></canvas><figcaption><span data-i18n="ov.output"></span><output class="lcd" id="vOut">—</output></figcaption></figure>
+            </div>
+            <div class="displays">
+              <div class="disp"><label data-i18n="ov.loudness"></label><div class="lcd big"><span id="lufs">—</span><small>LUFS</small></div><div class="lufs-bar"><i id="lufsMark"></i></div><p class="tiny muted" data-i18n="ov.loudnessHint"></p></div>
+              <div class="disp"><label data-i18n="ov.voice"></label><div class="lcd big"><span id="pitch">—</span><small id="pitchNote"></small></div><p class="tiny muted" id="voiceType"></p></div>
+              <div class="disp"><label data-i18n="ov.noiseFloor"></label><div class="lcd big"><span id="floor">—</span><small>dBFS</small></div><div class="vad"><i class="lamp" id="vadDot"></i><span id="vadText" data-i18n="ov.silence"></span></div></div>
+            </div>
+          </div>
+          <div class="gr-row" id="grRow"></div>
+        </div>
+
+        <div class="card spectrum-card">
+          <div class="card-head">
+            <h3 data-i18n="ov.spectrum"></h3>
+            <div class="seg" id="specMode">
+              <button type="button" data-v="bars" data-i18n="ov.bars"></button>
+              <button type="button" data-v="wave" data-i18n="ov.waterfall"></button>
+            </div>
+          </div>
+          <div class="glass"><canvas id="spec" height="200"></canvas></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3 data-i18n="ov.presets"></h3><button class="key small" id="btnSavePreset" type="button"><svg><use href="#i-save"/></svg><span data-i18n="ov.savePreset"></span></button></div>
+          <div class="presets" id="presets"></div>
+        </div>
+
+        <div class="grid g-2">
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="ov.quick"></h3></div>
+            <div class="toggles" id="quickToggles"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="ov.monitorTitle"></h3><label class="switch"><input type="checkbox" id="monOn"><i></i></label></div>
+            <p class="muted small" data-i18n="ov.monitorHint"></p>
+            <div class="field"><label data-i18n="ov.monitorDevice"></label><select id="monDev"></select></div>
+            <div class="knob-row">
+              <div id="monVolCtl"></div>
+              <div id="winVolCtl"></div>
+              <div class="field grow"><label>&nbsp;</label><div class="seg wide vertical" id="monSrc"><button type="button" data-v="0" data-i18n="ov.processed"></button><button type="button" data-v="1" data-i18n="ov.raw"></button></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Processing -->
+      <section class="page" data-page="processing">
+        <div class="card chain-card"><div class="chain" id="chain"></div></div>
+        <div class="modules" id="modules"></div>
+      </section>
+
+      <!-- EQ -->
+      <section class="page" data-page="eq">
+        <div class="card">
+          <div class="card-head">
+            <h3 data-i18n="eq.title"></h3>
+            <div class="row gap">
+              <select id="eqPreset"></select>
+              <label class="switch"><input type="checkbox" id="eqOn"><i></i></label>
+            </div>
+          </div>
+          <p class="muted small" data-i18n="eq.hint"></p>
+          <div class="glass scope"><canvas id="eqCanvas" height="300"></canvas></div>
+          <div class="eq-bands" id="eqBands"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3 data-i18n="eq.tone"></h3></div>
+          <div class="tone" id="tone"></div>
+        </div>
+      </section>
+
+      <!-- FX -->
+      <section class="page" data-page="fx">
+        <div class="card">
+          <div class="card-head"><h3 data-i18n="fx.title"></h3></div>
+          <p class="muted small" data-i18n="fx.hint"></p>
+          <div class="fx-grid" id="fxGrid"></div>
+          <div class="knob-row center fx-ctl">
+            <div id="fxMixCtl"></div>
+            <div id="fxParamCtl"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- A/B -->
+      <section class="page" data-page="ab">
+        <div class="card deck tape">
+          <div class="card-head"><h3 data-i18n="ab.title"></h3></div>
+          <p class="muted" data-i18n="ab.hint"></p>
+          <div class="reels" id="reels">
+            <div class="reel"><i></i><i></i><i></i></div>
+            <div class="tape-window">
+              <div class="lcd counter" id="abCounter">00:00</div>
+              <div class="ab-progress"><div id="abBar"></div></div>
+              <div class="tiny" id="abStatus"></div>
+            </div>
+            <div class="reel"><i></i><i></i><i></i></div>
+          </div>
+          <div class="paper-strip" id="abPhrase"></div>
+          <div class="transport">
+            <div class="seg" id="abLen"><button type="button" data-v="5">5 s</button><button type="button" data-v="10">10 s</button><button type="button" data-v="20">20 s</button></div>
+            <button class="key rec" id="abRecord" type="button"><i class="lamp red"></i><svg><use href="#i-record"/></svg><span data-i18n="ab.record"></span></button>
+            <button class="key" id="abPlay" type="button" disabled><svg><use href="#i-play"/></svg></button>
+            <div class="ab-switch">
+              <button type="button" class="key ab-side" data-v="a"><i class="lamp"></i><b>A</b><span data-i18n="ab.before"></span></button>
+              <button type="button" class="key ab-side" data-v="b"><i class="lamp"></i><b>B</b><span data-i18n="ab.after"></span></button>
+            </div>
+          </div>
+          <div class="ab-player" id="abPlayer" hidden>
+            <div class="glass"><canvas id="abWave" height="80"></canvas></div>
+            <div class="row gap center wrap">
+              <a class="key small" id="abDlA" download="before.wav"><svg><use href="#i-download"/></svg><span data-i18n="ab.downloadA"></span></a>
+              <a class="key small" id="abDlB" download="after.wav"><svg><use href="#i-download"/></svg><span data-i18n="ab.downloadB"></span></a>
+            </div>
+            <p class="muted tiny center" data-i18n="ab.tip"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diagnostics -->
+      <section class="page" data-page="diag">
+        <div class="card diag-head">
+          <div class="diag-summary" id="diagSummary">
+            <i class="lamp big" id="diagLamp"></i>
+            <div><h3 data-i18n="diag.title"></h3><p class="muted small" data-i18n="diag.hint"></p></div>
+          </div>
+          <div class="row gap">
+            <button class="key small" id="diagCopy" type="button"><svg><use href="#i-copy"/></svg><span data-i18n="diag.copy"></span></button>
+            <button class="key primary" id="diagRun" type="button"><svg><use href="#i-refresh"/></svg><span data-i18n="diag.run"></span></button>
+          </div>
+        </div>
+        <div class="diag-list" id="diagList"></div>
+      </section>
+
+      <!-- Guide -->
+      <section class="page" data-page="guide">
+        <div class="manual" id="guide"></div>
+      </section>
+
+      <!-- Settings -->
+      <section class="page" data-page="settings">
+        <div class="grid g-2">
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="set.general"></h3></div>
+            <div class="field"><label data-i18n="set.language"></label><select id="setLang"></select></div>
+            <div class="field"><label data-i18n="set.theme"></label>
+              <div class="seg wide" id="setTheme"><button type="button" data-v="auto" data-i18n="set.themeAuto"></button><button type="button" data-v="light" data-i18n="set.themeLight"></button><button type="button" data-v="dark" data-i18n="set.themeDark"></button></div>
+            </div>
+            <div class="field row between"><label data-i18n="set.autostart"></label><label class="switch"><input type="checkbox" id="setAutostart"><i></i></label></div>
+            <div class="field row between"><label data-i18n="set.beep"></label><label class="switch"><input type="checkbox" id="setBeep"><i></i></label></div>
+            <div class="field"><label data-i18n="set.hotkey"></label>
+              <div class="row gap"><label class="switch"><input type="checkbox" id="setHotkeyOn"><i></i></label><button class="key hotkey" id="setHotkey" type="button"></button></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="set.devices"></h3></div>
+            <div class="field"><label data-i18n="set.mic"></label><select id="setMic"></select></div>
+            <div class="field row between"><label data-i18n="set.route"></label><label class="switch"><input type="checkbox" id="setRouteOn"><i></i></label></div>
+            <p class="muted tiny" data-i18n="set.routeHint"></p>
+            <div class="field"><select id="setRouteDev"></select></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="set.driver"></h3></div>
+            <div class="drv-status" id="drvStatus"></div>
+            <div class="row gap wrap">
+              <button class="key primary" id="drvInstall" type="button"><svg><use href="#i-shield"/></svg><span data-i18n="set.install"></span></button>
+              <button class="key" id="drvAttach" type="button"><svg><use href="#i-plug"/></svg><span data-i18n="set.attach"></span></button>
+              <button class="key" id="drvRestart" type="button"><svg><use href="#i-refresh"/></svg><span data-i18n="set.restartAudio"></span></button>
+              <button class="key danger" id="drvRemove" type="button"><svg><use href="#i-trash"/></svg><span data-i18n="set.uninstall"></span></button>
+            </div>
+            <p class="muted tiny" data-i18n="set.driverHint"></p>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="upd.title"></h3></div>
+            <div class="field row between"><label data-i18n="upd.auto"></label><label class="switch"><input type="checkbox" id="updAuto"><i></i></label></div>
+            <div class="drv-status" id="updStatus"></div>
+            <div class="row gap wrap">
+              <button class="key" id="updCheck" type="button"><svg><use href="#i-refresh"/></svg><span data-i18n="upd.check"></span></button>
+              <a class="key" id="updNotes" target="_blank" rel="noopener" hidden><svg><use href="#i-download"/></svg><span data-i18n="upd.notes"></span></a>
+            </div>
+            <p class="muted tiny" data-i18n="upd.hint"></p>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3 data-i18n="set.backup"></h3></div>
+            <div class="row gap wrap">
+              <a class="key" href="/api/export" download="c01u-pro-studio-settings.json"><svg><use href="#i-download"/></svg><span data-i18n="set.export"></span></a>
+              <label class="key"><svg><use href="#i-upload"/></svg><span data-i18n="set.import"></span><input type="file" id="setImport" accept=".json,application/json" hidden></label>
+              <button class="key" id="setReset" type="button"><svg><use href="#i-refresh"/></svg><span data-i18n="set.reset"></span></button>
+            </div>
+            <div class="sep"></div>
+            <div class="about" id="about"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal" hidden><div class="modal-box" id="modalBox"></div></div>
+<div class="toast" id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

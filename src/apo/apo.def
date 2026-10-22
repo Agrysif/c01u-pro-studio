@@ -1,0 +1,6 @@
+LIBRARY C01UProStudioApo
+EXPORTS
+  DllGetClassObject   PRIVATE
+  DllCanUnloadNow     PRIVATE
+  DllRegisterServer   PRIVATE
+  DllUnregisterServer PRIVATE
