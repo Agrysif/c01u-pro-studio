@@ -13,6 +13,7 @@
 #include <mmdeviceapi.h>
 #include <objbase.h>
 #include <shellapi.h>
+#include <shobjidl.h>
 
 #include <locale.h>
 
@@ -23,6 +24,7 @@
 #include "common.h"
 #include "controller.h"
 #include "install.h"
+#include "panel_window.h"
 #include "resource.h"
 #include "tray_text.h"
 #include "update.h"
@@ -274,6 +276,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
       return 0;
     case WM_CLOSE: DestroyWindow(hwnd); return 0;
     case WM_DESTROY:
+      ClosePanelWindow();
       KillTimer(hwnd, kTimerId);
       if (g_hotkey) UnregisterHotKey(hwnd, kHotkeyId);
       RemoveTray(hwnd);
@@ -350,6 +353,8 @@ int WINAPI wWinMain(HINSTANCE inst, HINSTANCE, PWSTR, int) {
 
   CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
   SetProcessDPIAware();
+  // one taskbar button and pinning for the panel window and the shortcuts (same id there)
+  SetCurrentProcessExplicitAppUserModelID(MS_APP_ID);
   EnsureDir(ProgramDataDir());
   Log("start %s (%ls) args='%ls'", MS_VERSION_STR, ExePath().c_str(), JoinArgs().c_str());
 

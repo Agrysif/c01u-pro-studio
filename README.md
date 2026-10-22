@@ -13,6 +13,11 @@ like a 1970s recording studio. No neural networks: under 1% of one CPU core and 
 
 ![C01U Pro Studio: live meters, equalizer, compressor, A/B test and diagnostics](docs/screenshots/tour-en.gif)
 
+▶ **Trailer (31 s, with music):** [English](https://github.com/Agrysif/c01u-pro-studio/releases/download/v1.1.0/C01U-Pro-Studio-trailer-en.mp4) ·
+[Русский](https://github.com/Agrysif/c01u-pro-studio/releases/download/v1.1.0/C01U-Pro-Studio-trailer-ru.mp4)
+
+![Trailer: the old TV switches channel and the microphone gets a new sound](docs/screenshots/trailer-en.gif)
+
 ## Why C01U Pro Studio
 
 - **Works in every app.** The processing runs inside the Windows audio engine as a system effect (APO), so every program
@@ -20,6 +25,8 @@ like a 1970s recording studio. No neural networks: under 1% of one CPU core and 
 - **Made for the C01U Pro.** It is a sensitive condenser microphone that hears the whole room. The chain removes hiss, PC
   fans and hum, closes the mic in pauses, softens pops and sharp "s" sounds and keeps the level even.
 - **Light.** Under 1% of one CPU core, about 12 ms of latency. The panel in the tray takes under 10 MB of memory.
+- **A normal Windows app.** Its own window, taskbar button, Start menu and desktop shortcuts, tray icon and autostart.
+  Closing the window leaves it in the tray; the driver keeps working either way.
 - **Easy.** *Smart setup* listens to your room and your voice for 15 seconds and tunes the whole chain. *Diagnostics*
   finds typical problems and fixes them in one click.
 - **Updates itself.** New versions come from GitHub Releases, are checked with the author's digital signature and
@@ -61,7 +68,8 @@ More screenshots: [docs/screenshots](docs/screenshots).
    click **More info → Run anyway**.
 3. The panel opens. Press **Install driver** and confirm the Windows prompt. The Windows audio service restarts, so the
    sound disappears for a couple of seconds.
-4. Done. The panel starts with Windows and lives in the tray: click the icon to open it.
+4. Done. The panel starts with Windows and lives in the tray: click the tray icon or the **C01U Pro Studio** shortcut
+   on the desktop or in the Start menu to open its window.
 
 **Requirements:** Windows 8, 8.1, 10 or 11, 64-bit; a Samson C01U Pro. You can attach the driver to another microphone in
 *Settings*, but the presets are tuned for the C01U Pro. Tested on Windows 11 25H2; the Windows 8 and 10 builds have not
@@ -73,7 +81,7 @@ What the installer changes (the original values are backed up and restored on re
 - registers the processing module and attaches it to every Samson microphone Windows knows;
 - allows unsigned audio effects to load (`DisableProtectedAudioDG`, the same setting Equalizer APO uses);
 - turns on Windows *Audio enhancements* for the microphone: without them Windows skips every audio effect;
-- adds the update task, autostart and an entry in *Apps*.
+- adds the update task, autostart, Start menu and desktop shortcuts and an entry in *Apps*.
 
 To remove it: *Settings → Remove driver* in the panel, or *Windows Settings → Apps*.
 
@@ -129,11 +137,15 @@ loads its last settings by itself.
 **The driver stopped working after a Windows update.** Open *Diagnostics*. Windows sometimes turns *Audio enhancements*
 off; the fix is one click.
 
+**What draws the panel window?** WebView2, the web engine built into Windows 10 and 11, inside the app's own window: no
+browser tabs, address bar or menus. On Windows 8 without WebView2 the panel opens in a browser window instead.
+
 **macOS / Linux?** No, the APO mechanism is Windows-only.
 
 ## Build from source
 
-You need Visual Studio 2019/2022 or Build Tools with C++ and the Windows SDK.
+You need Visual Studio 2019/2022 or Build Tools with C++ and the Windows SDK. The first build downloads the WebView2 SDK
+from nuget.org into `deps/` and checks it against a pinned SHA-256.
 
 ```powershell
 .\build.ps1 tests     # DSP tests, update core self-test, APO load test the way Windows loads it
@@ -151,6 +163,7 @@ For UI work without rebuilding, set `C01U_WEB_DIR=<path to web>` and the panel s
 | `web/` | The interface and translations |
 | `tests/` | DSP tests, APO host test, update test |
 | `tools/` | Release script, screenshot script, icon generator |
+| `promo/` | The trailer: a frame-by-frame renderer (Three.js, the real panel, ffmpeg) — see [promo/README.md](promo/README.md) |
 | `releases/<version>/` | Release notes |
 
 Releasing a new version: raise the version in `src/shared/version.h`, describe it in `releases/<version>/`, commit,

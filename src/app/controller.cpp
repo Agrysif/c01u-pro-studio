@@ -8,6 +8,8 @@
 
 #include "common.h"
 #include "install.h"
+#include "panel_window.h"
+#include "resource.h"
 #include "update.h"
 #include "update_core.h"
 
@@ -273,7 +275,11 @@ void Controller::onTimer() {
 
 // ------------------------------------------------------------------ tray
 void Controller::openUi() {
-  // the panel window is open already: bring it to the front instead of opening another one
+  wchar_t own[64];
+  swprintf_s(own, L"http://127.0.0.1:%d/", http_.port());
+  if (OpenPanelWindow(own, IDI_APP)) return;
+  // no WebView2 runtime (Windows 8): a chromeless Edge/Chrome app window or the default browser.
+  // The panel window is open already: bring it to the front instead of opening another one
   HWND open = nullptr;
   EnumWindows(FindUiWindow, (LPARAM)&open);
   if (open) {

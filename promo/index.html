@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <!-- Промо-ролик C01U Pro Studio. Рендерится покадрово: node promo/render.js -->
+  <title>C01U Pro Studio promo</title>
+  <link rel="stylesheet" href="promo.css">
+  <script src="clock.js"></script>
+  <script>
+    // данные для настоящего пульта во фрейме: снимок состояния и диагностики, поправленный под ролик
+    window.__lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
+    document.documentElement.lang = window.__lang;
+    window.__uiData = Promise.all([
+      fetch('data/state.json').then((r) => r.json()),
+      fetch('data/diag.json').then((r) => r.json()),
+    ]).then(([state, diag]) => {
+      const mic = 'Samson C01U Pro Mic';
+      Object.assign(state.settings, { language: window.__lang, theme: 'dark', firstRun: false, monitorOn: false });
+      state.params.bypass = 0;
+      state.params.mute = 0;
+      // [вкл, тип (0 колокол, 1 низкая полка, 2 высокая полка), частота, усиление, Q]
+      const bands = [[1, 1, 90, 3, 0.7], [1, 0, 280, -3, 1.1], [1, 0, 900, -1.5, 1.2], [1, 0, 3200, 2.5, 1.0], [1, 2, 9500, 4, 0.7]];
+      state.params.eq.forEach((b, i) => {
+        const v = bands[i];
+        if (v) Object.assign(b, { on: true, type: v[1], freq: v[2], gain: v[3], q: v[4] });
+        else b.on = false;
+      });
+      Object.assign(state.status, { muted: false, bypass: false, mode: 'apo' });
+      Object.assign(state.status.device, { name: mic, volume: 74 });
+      Object.assign(state.status.driver, { active: true, load: 0.8, latencyMs: 12.1, version: '1.0.1' });
+      for (const d of state.devices.inputs || []) if (/samson/i.test(d.name)) d.name = mic;
+      state.update = { auto: true, current: '1.0.1', status: 'current', latest: '1.0.1' };
+      diag.checks = diag.checks.filter((c) => c.status !== 'warn' && c.status !== 'fail');
+      for (const c of diag.checks) if (c.data && c.data.name) c.data.name = mic;
+      diag.fails = 0;
+      diag.warns = 0;
+      return { state, diag };
+    });
+  </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/addons/": "./node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute">
+    <!-- значок пульта (как в web/index.html) -->
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></symbol>
+  </svg>
+  <div id="frame">
+    <div id="stage">
+      <!-- комната с телевизором; камера — трансформация #world -->
+      <div id="world">
+        <div id="wall"></div>
+        <div id="tvGlow"></div>
+        <div id="console"></div>
+        <div id="tv">
+          <div class="leg l1"></div><div class="leg l2"></div><div class="leg l3"></div><div class="leg l4"></div>
+          <div id="cabinet">
+            <div id="bezel">
+              <div id="crt">
+                <div id="scrContent">
+                  <canvas id="scrGl" width="1440" height="1080"></canvas>
+                  <canvas id="scope" width="840" height="630"></canvas>
+                  <div id="scrTags"></div>
+                </div>
+                <div id="scrUi"><iframe id="ui" src="/ui/index.html" scrolling="no"></iframe></div>
+                <div id="scrCards">
+                  <div class="card install" id="cardInstall">
+                    <div class="ic-head"><i class="ic-logo"><svg><use href="#i-mic"/></svg></i><b>C01U Pro Studio</b><span>1.0.1</span></div>
+                    <div class="ic-title" id="icTitle"></div>
+                    <div class="ic-bar"><i id="icBar"></i></div>
+                    <div class="ic-pct" id="icPct">0%</div>
+                    <ul class="ic-steps" id="icSteps"></ul>
+                  </div>
+                  <div class="card channel" id="cardChannel"><div class="bars"></div><div class="ch-plate"><small id="chNo"></small><b id="chName"></b></div></div>
+                  <div class="card update" id="cardUpdate">
+                    <div class="up-box">
+                      <i class="ic-logo"><svg><use href="#i-mic"/></svg></i>
+                      <div class="up-text"><b id="upTitle"></b><span id="upSub"></span><div class="ic-bar"><i id="upBar"></i></div><small id="upNote"></small></div>
+                    </div>
+                  </div>
+                </div>
+                <canvas id="scrStatic" width="420" height="316"></canvas>
+                <div id="rollbar"></div>
+                <div id="crtFx"><div class="mask" id="crtMask"></div><div class="lines"></div><div class="vig"></div><div class="glare"></div></div>
+                <div id="osd"></div>
+                <div id="pwr"></div>
+              </div>
+            </div>
+            <div id="ctrl">
+              <div class="brand">SOLID STATE</div>
+              <div id="dialRing"></div>
+              <div id="dial"><i></i></div>
+              <div id="tvLamp"></div>
+              <div id="vol"><i></i></div>
+              <div class="grille"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <canvas id="gl" width="1920" height="1080"></canvas>
+      <div id="captions"></div>
+      <div id="logo">
+        <div class="plate">
+          <i class="mic"><svg><use href="#i-mic"/></svg></i>
+          <div><b>C01U PRO</b><span>STUDIO</span><em>VOICE PROCESSOR · MODEL 1</em></div>
+        </div>
+        <div class="tag" id="logoTag"></div>
+      </div>
+      <div id="board"><div class="board-word" id="boardA"></div></div>
+      <div id="lockup">
+        <div class="plate">
+          <i class="mic"><svg><use href="#i-mic"/></svg></i>
+          <div><b>C01U PRO</b><span>STUDIO</span><em>VOICE PROCESSOR · MODEL 1</em></div>
+        </div>
+        <div class="lk-line" id="lkLine"></div>
+        <div class="lk-url">github.com/Agrysif/c01u-pro-studio</div>
+        <div class="lk-small" id="lkSmall"></div>
+      </div>
+      <div id="flash"></div>
+      <div id="vignette"></div>
+      <canvas id="grain" width="960" height="540"></canvas>
+    </div>
+    <div id="offLine"></div>
+    <div id="black"></div>
+    <div id="dbg"></div>
+  </div>
+  <script type="module" src="promo.js"></script>
+</body>
+</html>

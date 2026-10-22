@@ -1,6 +1,7 @@
-# Build output
+# Build output and downloaded SDKs (build.ps1 fetches them)
 build/
 dist/
+deps/
 
 # Signing keys never go into the repository (they live in %USERPROFILE%\.c01u-pro-studio)
 *.pem
@@ -10,8 +11,12 @@ dist/
 
 # Tools installed for screenshots
 node_modules/
-package.json
-package-lock.json
+/package.json
+/package-lock.json
+
+# Promo: the Suno track and its data, renders
+promo/music/
+promo/out/
 
 # Editors
 .vs/

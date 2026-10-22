@@ -7,6 +7,8 @@
 #include <shellapi.h>
 #include <shlobj.h>
 #include <shobjidl.h>
+#include <propkey.h>
+#include <propvarutil.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <tlhelp32.h>
@@ -482,6 +484,17 @@ bool CreateShortcut(const std::wstring& lnk, const std::wstring& target, const s
   link->SetArguments(args.c_str());
   link->SetIconLocation(target.c_str(), 0);
   link->SetDescription(L"Samson C01U Pro: sound settings, monitoring and diagnostics");
+  // same AppUserModelID as the running app: a pinned shortcut and the panel window share one button
+  IPropertyStore* props = nullptr;
+  if (SUCCEEDED(link->QueryInterface(IID_PPV_ARGS(&props)))) {
+    PROPVARIANT v;
+    if (SUCCEEDED(InitPropVariantFromString(MS_APP_ID, &v))) {
+      props->SetValue(PKEY_AppUserModel_ID, v);
+      props->Commit();
+      PropVariantClear(&v);
+    }
+    props->Release();
+  }
   IPersistFile* pf = nullptr;
   bool ok = SUCCEEDED(link->QueryInterface(IID_IPersistFile, (void**)&pf)) && SUCCEEDED(pf->Save(lnk.c_str(), TRUE));
   if (pf) pf->Release();
@@ -489,13 +502,15 @@ bool CreateShortcut(const std::wstring& lnk, const std::wstring& target, const s
   return ok;
 }
 
-std::wstring StartMenuShortcut() {
+std::wstring ShortcutIn(REFKNOWNFOLDERID folder) {
   PWSTR p = nullptr;
   std::wstring dir;
-  if (SUCCEEDED(SHGetKnownFolderPath(FOLDERID_CommonPrograms, 0, nullptr, &p)) && p) dir = p;
+  if (SUCCEEDED(SHGetKnownFolderPath(folder, 0, nullptr, &p)) && p) dir = p;
   if (p) CoTaskMemFree(p);
   return dir.empty() ? std::wstring() : dir + L"\\" MS_PRODUCT_NAME L".lnk";
 }
+std::wstring StartMenuShortcut() { return ShortcutIn(FOLDERID_CommonPrograms); }
+std::wstring DesktopShortcut() { return ShortcutIn(FOLDERID_PublicDesktop); }
 
 DWORD ParentPid() {
   const DWORD self = GetCurrentProcessId();
@@ -772,8 +787,8 @@ int RunInstall(const std::vector<std::wstring>& extraEndpoints) {
   ILog("endpoints attached: %d of %d", attached, (int)endpoints.size());
 
   WriteUninstallEntry(exe);
-  const std::wstring lnk = StartMenuShortcut();
-  if (!lnk.empty()) CreateShortcut(lnk, exe, L"--open");
+  for (const std::wstring& lnk : {StartMenuShortcut(), DesktopShortcut()})
+    if (!lnk.empty()) CreateShortcut(lnk, exe, L"--open");
 
   const bool started = StartAudio();
   ILog("install finished, audio restarted: %s", started ? "yes" : "no");
@@ -863,8 +878,8 @@ int RunUninstall(bool quiet) {
     RegDeleteValueW(run, MS_RUN_VALUE);
     RegCloseKey(run);
   }
-  const std::wstring lnk = StartMenuShortcut();
-  if (!lnk.empty()) DeleteFileW(lnk.c_str());
+  for (const std::wstring& lnk : {StartMenuShortcut(), DesktopShortcut()})
+    if (!lnk.empty()) DeleteFileW(lnk.c_str());
   ILog("uninstall finished");
   if (g_log) {
     fclose(g_log);

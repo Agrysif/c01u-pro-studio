@@ -27,6 +27,29 @@ function Invoke-Tool([string]$exe, [string[]]$arguments) {
   if ($LASTEXITCODE -ne 0) { throw "$exe failed with exit code $LASTEXITCODE" }
 }
 
+# WebView2 SDK (Microsoft, nuget.org): the panel window draws the web UI with the WebView2 runtime that
+# ships with Windows 10/11. Downloaded once into .\deps and checked against a pinned SHA-256.
+$WebView2Version = "1.0.4258.31"
+$WebView2Sha256 = "56F7F4B8BF9AEE4B8EFEFBBDD4F67D5F74EBD1B100ED0806DA71BF76AF481AA9"
+function Get-WebView2Sdk {
+  $dir = Join-Path $Root "deps\webview2"
+  if (Test-Path (Join-Path $dir "build\native\include\WebView2.h")) { return $dir }
+  $deps = Join-Path $Root "deps"
+  New-Item -ItemType Directory -Force -Path $deps | Out-Null
+  $pkg = Join-Path $deps "microsoft.web.webview2.$WebView2Version.nupkg"
+  if (-not (Test-Path $pkg)) {
+    Write-Host "== downloading WebView2 SDK $WebView2Version" -ForegroundColor Cyan
+    Invoke-WebRequest -UseBasicParsing -OutFile $pkg `
+      "https://api.nuget.org/v3-flatcontainer/microsoft.web.webview2/$WebView2Version/microsoft.web.webview2.$WebView2Version.nupkg"
+  }
+  if ((Get-FileHash -Algorithm SHA256 $pkg).Hash -ne $WebView2Sha256) {
+    Remove-Item $pkg
+    throw "WebView2 SDK package checksum mismatch"
+  }
+  Expand-Archive -Path $pkg -DestinationPath $dir -Force
+  return $dir
+}
+
 $CommonFlags = @("/nologo", "/O2", "/W3", "/EHsc", "/std:c++17", "/utf-8", "/MT", "/GS", "/Gy", "/Zi",
   "/DUNICODE", "/D_UNICODE", "/DWIN32_LEAN_AND_MEAN", "/DNOMINMAX", "/D_WIN32_WINNT=0x0602", "/DWINVER=0x0602",
   "/D_CRT_SECURE_NO_WARNINGS")
@@ -81,8 +104,10 @@ function Build-App {
   Invoke-Tool rc.exe @("/nologo", "/c65001", "/fo$obj\web.res", $webRc)
   Invoke-Tool rc.exe @("/nologo", "/c65001", "/I$Root\src", "/fo$obj\app.res", "$Root\src\app\app.rc")
   $sources = Get-ChildItem "$Root\src\app\*.cpp" | ForEach-Object { $_.FullName }
-  Invoke-Tool cl.exe ($CommonFlags + @("/Fo$obj\\", "/Fd$obj\\app.pdb", "/Fe$Build\C01UProStudio.exe") + $sources +
+  $wv2 = Join-Path (Get-WebView2Sdk) "build\native"
+  Invoke-Tool cl.exe ($CommonFlags + @("/I$wv2\include", "/Fo$obj\\", "/Fd$obj\\app.pdb", "/Fe$Build\C01UProStudio.exe") + $sources +
     @("$obj\app.res", "$obj\web.res", "/link", "/SUBSYSTEM:WINDOWS", "/DEBUG", "/OPT:REF", "/OPT:ICF",
+      "$wv2\x64\WebView2LoaderStatic.lib", "dwmapi.lib", "version.lib",
       "ole32.lib", "oleaut32.lib", "uuid.lib", "user32.lib", "shell32.lib", "advapi32.lib", "ws2_32.lib",
       "gdi32.lib", "comctl32.lib", "propsys.lib", "setupapi.lib", "shlwapi.lib", "winmm.lib", "avrt.lib",
       "winhttp.lib", "bcrypt.lib", "taskschd.lib"))

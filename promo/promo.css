@@ -1,0 +1,175 @@
+/* Промо C01U Pro Studio: ретро-телевизор 70-х в комнате, 3D-микрофон и настоящий пульт на экране. */
+:root {
+  --label: "Bahnschrift SemiCondensed", "Bahnschrift", "Arial Narrow", "Segoe UI", sans-serif;
+  --body: "Segoe UI", system-ui, sans-serif;
+  --mono: "Consolas", "Lucida Console", monospace;
+  --amber: #ffb23e;
+  --orange: #d8641c;
+  --cream: #f1e6cf;
+  --green: #8bd84a;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; overflow: hidden; }
+#frame { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #000; font-family: var(--label); color: var(--cream); }
+#stage { position: absolute; inset: 0; overflow: hidden; background: #0d0907; transform-origin: 50% 50%; }
+#stage > * { position: absolute; }
+svg { overflow: visible; }
+
+/* ---------------------------------------------------------------- комната */
+#world { left: 0; top: 0; width: 1920px; height: 1080px; will-change: transform; }
+#world > * { position: absolute; }
+#wall {
+  inset: -400px; background:
+    radial-gradient(ellipse 1100px 760px at 50% 46%, rgba(255, 170, 90, 0.16), rgba(0, 0, 0, 0) 70%),
+    repeating-linear-gradient(90deg, #2b1c13 0 150px, #1d130d 150px 153px, #31201a 153px 300px, #170f0a 300px 303px);
+}
+#wall::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.72) 85%); }
+#tvGlow { left: 260px; top: 60px; width: 1400px; height: 900px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(160, 190, 220, 0.18), rgba(0, 0, 0, 0) 65%); filter: blur(20px); }
+#console { left: -200px; top: 1000px; width: 2320px; height: 160px; background: linear-gradient(180deg, #4a3020 0 6px, #3a2518 6px 40px, #1b120c 40px); box-shadow: 0 -2px 0 rgba(255, 210, 160, 0.15); }
+
+/* ---------------------------------------------------------------- телевизор */
+#tv { left: 310px; top: 90px; width: 1300px; height: 910px; }
+#tv > * { position: absolute; }
+.leg { top: 790px; width: 50px; height: 120px; background: linear-gradient(90deg, #2b1a10, #4a2f1d 45%, #23160d); clip-path: polygon(0 0, 100% 0, 78% 100%, 22% 100%); }
+.l1 { left: 110px; } .l2 { left: 330px; } .l3 { right: 330px; } .l4 { right: 110px; }
+#cabinet {
+  left: 0; top: 0; width: 1300px; height: 820px; border-radius: 34px;
+  background-color: #5a3820; background-size: cover;
+  box-shadow: 0 50px 90px rgba(0, 0, 0, 0.7), inset 0 3px 0 rgba(255, 220, 180, 0.22), inset 0 -8px 0 rgba(0, 0, 0, 0.35), inset 0 0 0 2px rgba(0, 0, 0, 0.4);
+}
+#cabinet > * { position: absolute; }
+#bezel {
+  left: 60px; top: 60px; width: 908px; height: 698px; border-radius: 30px;
+  background: linear-gradient(160deg, #e2d8c3, #b7ab92 60%, #9d917a);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.6), inset 0 -3px 0 rgba(0, 0, 0, 0.25);
+}
+#crt {
+  position: absolute; left: 34px; top: 34px; width: 840px; height: 630px; overflow: hidden;
+  border-radius: 48px / 58px; background: #0b0c0c;
+  box-shadow: 0 0 0 6px #2a2620, 0 0 0 8px rgba(255, 255, 255, 0.25);
+}
+#crt > * { position: absolute; left: 0; top: 0; width: 840px; height: 630px; }
+#scrContent > * { position: absolute; left: 0; top: 0; width: 840px; height: 630px; }
+#scrUi { overflow: hidden; background: #1a1511; }
+#ui { width: 1200px; height: 900px; border: 0; transform: scale(0.7); transform-origin: 0 0; background: #1a1511; }
+#scrStatic { image-rendering: auto; opacity: 0; }
+#rollbar { height: 140px !important; background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0)); opacity: 0; }
+#crtFx > * { position: absolute; inset: 0; }
+#crtFx .lines { background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0 1px, rgba(0, 0, 0, 0) 1px 3px); }
+#crtFx .mask { opacity: 0.06; background: repeating-linear-gradient(90deg, rgba(255, 40, 40, 0.9) 0 1px, rgba(40, 255, 70, 0.9) 1px 2px, rgba(60, 90, 255, 0.9) 2px 3px); mix-blend-mode: multiply; }
+#crtFx .vig { background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.6) 100%); }
+#crtFx .glare { background: radial-gradient(ellipse 500px 260px at 30% 18%, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 70%), linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 40%); }
+#osd { left: auto !important; right: 50px; top: 38px !important; width: auto !important; height: auto !important; font: 700 34px/1 var(--mono); color: #7dff7a; text-shadow: 0 0 6px rgba(80, 255, 90, 0.6), 2px 2px 0 rgba(0, 0, 0, 0.6); letter-spacing: 0.06em; }
+#pwr { background: #fff; opacity: 0; }
+
+/* экранные метки шума (на чёрно-белой картинке) */
+.stag { position: absolute; padding: 6px 12px; background: rgba(0, 0, 0, 0.65); border: 2px solid rgba(255, 255, 255, 0.75); font: 700 20px/1 var(--mono); color: #fff; letter-spacing: 0.04em; white-space: nowrap; }
+
+/* ---------------------------------------------------------------- карточки на экране (современная «цифра») */
+.card { position: absolute; inset: 0; opacity: 0; font-family: var(--body); color: #f2f3f5; }
+.card.install, .card.update { background: radial-gradient(ellipse at 50% 0%, #1a1e26, #0b0d11 70%); }
+.card.install { padding: 64px 74px; }
+.ic-head { display: flex; align-items: center; gap: 16px; font-size: 26px; }
+.ic-head span { margin-left: auto; padding: 4px 12px; border-radius: 99px; background: #23272f; font: 600 18px/1 var(--mono); color: #aeb4bf; }
+.ic-logo { width: 54px; height: 54px; border-radius: 50%; background: #121418; display: grid; place-items: center; box-shadow: inset 0 0 0 2px #2c313a; flex: none; }
+.ic-logo svg { width: 30px; height: 30px; fill: none; stroke: var(--amber); stroke-width: 2; stroke-linecap: round; }
+.ic-title { margin-top: 42px; font: 600 40px/1.15 var(--body); }
+.ic-bar { margin-top: 30px; height: 12px; border-radius: 6px; background: #23272f; overflow: hidden; }
+.ic-bar i { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, #ff9a2a, #ffc45a); }
+.ic-pct { margin-top: 18px; font: 700 64px/1 var(--mono); color: var(--amber); }
+.ic-steps { list-style: none; margin: 26px 0 0; padding: 0; font-size: 24px; color: #aeb4bf; }
+.ic-steps li { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.ic-steps li i { width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 2px #3a3f49; flex: none; display: grid; place-items: center; font: 700 15px/1 var(--body); font-style: normal; color: #fff; }
+.ic-steps li.done { color: #eef0f3; }
+.ic-steps li.done i { background: #3fae5a; box-shadow: none; }
+
+.card.channel .bars { position: absolute; inset: 0; background: linear-gradient(90deg, #b9b6ad 0 14.28%, #c4b23e 14.28% 28.57%, #3eb2b0 28.57% 42.85%, #4aa548 42.85% 57.14%, #a24aa0 57.14% 71.42%, #b24a3e 71.42% 85.71%, #3f4fae 85.71% 100%); }
+.card.channel .bars::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(90deg, #1b1e6a 0 25%, #f2f2f2 25% 50%, #3a0f6a 50% 75%, #111 75% 100%); }
+.ch-plate { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); padding: 30px 70px 34px; border-radius: 14px; background: rgba(10, 10, 12, 0.88); text-align: center; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85); }
+.ch-plate small { display: block; font: 700 26px/1 var(--mono); letter-spacing: 0.2em; color: #7dff7a; }
+.ch-plate b { display: block; margin-top: 14px; font: 700 104px/1 var(--label); letter-spacing: 0.04em; color: #fff; }
+
+.card.update { display: grid; place-items: center; }
+.up-box { display: flex; gap: 26px; width: 640px; padding: 36px 40px; border-radius: 20px; background: #161920; box-shadow: 0 0 0 1px #2b3039, 0 30px 70px rgba(0, 0, 0, 0.6); }
+.up-box .ic-logo { width: 70px; height: 70px; }
+.up-box .ic-logo svg { width: 38px; height: 38px; }
+.up-text { flex: 1; }
+.up-text b { display: block; font: 600 32px/1.2 var(--body); }
+.up-text span { display: block; margin-top: 8px; font: 400 24px/1.2 var(--body); color: #aeb4bf; }
+.up-text .ic-bar { margin-top: 22px; }
+.up-text small { display: block; margin-top: 16px; font: 400 19px/1.3 var(--body); color: #8b919c; }
+
+/* ---------------------------------------------------------------- панель управления телевизора */
+#ctrl {
+  left: 1000px; top: 60px; width: 240px; height: 698px; border-radius: 16px;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, rgba(0, 0, 0, 0.04) 1px 3px), linear-gradient(90deg, #8b877f, #cfcac0 50%, #8b877f);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.6);
+}
+#ctrl > * { position: absolute; }
+#ctrl .brand { left: 0; top: 26px; width: 240px; text-align: center; font: 700 18px/1 var(--label); letter-spacing: 0.32em; color: #3a352d; }
+#dialRing { left: 15px; top: 66px; width: 210px; height: 210px; border-radius: 50%; }
+#dialRing span { position: absolute; left: 50%; top: 50%; font: 700 17px/1 var(--label); color: #2c2822; transform-origin: 0 0; }
+#dial {
+  left: 40px; top: 91px; width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #3a3631 0 34%, rgba(0, 0, 0, 0) 35%), conic-gradient(from 20deg, #f2f0ea, #8d8a84, #e9e6df, #77746e, #f2f0ea, #8d8a84, #e9e6df, #77746e, #f2f0ea);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45), inset 0 0 0 3px rgba(0, 0, 0, 0.25);
+}
+#dial i { position: absolute; left: 76px; top: 8px; width: 8px; height: 46px; border-radius: 4px; background: #d8641c; }
+#tvLamp { left: 108px; top: 300px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #ffb8a8, #b8281a 60%, #4a0d08); box-shadow: 0 0 10px rgba(255, 60, 30, 0.5); }
+#tvLamp.on { background: radial-gradient(circle at 40% 35%, #e8ffc8, #5cc23a 60%, #1c4a10); box-shadow: 0 0 18px rgba(130, 255, 90, 0.8); }
+#vol { left: 70px; top: 352px; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #2a2722 0 44%, #4a4640 45%, #1d1b18 70%); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45); }
+#vol i { position: absolute; left: 47px; top: 10px; width: 6px; height: 26px; border-radius: 3px; background: #e9e2d2; }
+#ctrl .grille { left: 22px; top: 488px; width: 196px; height: 186px; border-radius: 10px; background: repeating-linear-gradient(0deg, #2a2621 0 7px, #6d685f 7px 10px); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6); }
+
+/* ---------------------------------------------------------------- 3D на весь кадр */
+#gl { left: 0; top: 0; width: 1920px; height: 1080px; opacity: 0; }
+
+/* ---------------------------------------------------------------- титры (нижняя треть, как в эфире) */
+#captions { inset: 0; pointer-events: none; }
+.cap { position: absolute; left: 90px; bottom: 96px; opacity: 0; }
+.cap .cp { display: inline-block; padding: 22px 44px 24px 34px; border-left: 12px solid var(--orange); background: rgba(14, 10, 7, 0.9); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+.cap .l1 { font: 700 66px/1.02 var(--label); letter-spacing: 0.03em; text-transform: uppercase; color: var(--cream); }
+.cap .l2 { margin-top: 12px; font: 600 28px/1.15 var(--label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+.cap .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.04em; }
+.cap .w > span { display: inline-block; will-change: transform; }
+
+/* ---------------------------------------------------------------- плашка логотипа (как в пульте) */
+.plate {
+  display: inline-flex; align-items: center; gap: 30px; padding: 30px 50px 30px 34px; border-radius: 12px;
+  background: linear-gradient(180deg, #f4ecda, #d9ccb0); color: #2a221a; text-align: left;
+  box-shadow: 0 0 0 3px #9c8c6e, 0 6px 0 #8a7a5e, 0 30px 80px rgba(0, 0, 0, 0.55), inset 0 2px 0 rgba(255, 255, 255, 0.7);
+}
+.plate .mic { width: 112px; height: 112px; border-radius: 50%; flex: none; display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, #3a2f25, #120d09 72%); box-shadow: inset 0 0 0 5px #6b5a45, 0 3px 0 rgba(0, 0, 0, 0.3); }
+.plate .mic svg { width: 64px; height: 64px; fill: none; stroke: var(--amber); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.plate b { display: block; font: 700 92px/0.9 var(--label); letter-spacing: 0.04em; }
+.plate span { display: block; font: 700 40px/1 var(--label); letter-spacing: 0.62em; margin-top: 6px; }
+.plate em { display: block; font: 600 20px/1 var(--label); font-style: normal; letter-spacing: 0.22em; margin-top: 12px; color: #6c5f4b; }
+
+#logo { left: 860px; top: 0; width: 1000px; height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; opacity: 0; pointer-events: none; }
+#logo .plate { transform-origin: 50% 50%; }
+#logo .tag { font: 600 34px/1.2 var(--label); letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); text-align: center; }
+
+/* ---------------------------------------------------------------- табло языков */
+#board { left: 0; top: 330px; width: 1920px; height: 240px; perspective: 1400px; pointer-events: none; opacity: 0; }
+.board-word {
+  position: absolute; left: 50%; top: 0; height: 240px; padding: 0 70px; transform-origin: 50% 50% -60px;
+  display: flex; align-items: center; justify-content: center; white-space: nowrap; transform: translateX(-50%);
+  border-radius: 14px; background: linear-gradient(180deg, #1d1814 0%, #120e0b 49.6%, #050403 50%, #17120e 50.4%, #0d0a08 100%);
+  box-shadow: 0 0 0 3px #3b3027, 0 30px 70px rgba(0, 0, 0, 0.7), inset 0 2px 0 rgba(255, 255, 255, 0.06);
+  font: 700 150px/1 var(--label); letter-spacing: 0.05em; color: var(--amber);
+  backface-visibility: hidden; will-change: transform, opacity;
+}
+
+/* ---------------------------------------------------------------- финальная плашка */
+#lockup { left: 0; top: 0; width: 1920px; height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, #2a1d14, #0d0907 70%); }
+#lockup .plate { transform: scale(1.15); }
+.lk-line { margin-top: 70px; font: 700 50px/1 var(--label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); }
+.lk-url { margin-top: 26px; font: 600 38px/1 var(--mono); color: var(--amber); }
+.lk-small { margin-top: 30px; font: 600 22px/1 var(--label); letter-spacing: 0.2em; text-transform: uppercase; color: #8f8068; }
+
+#flash { inset: 0; background: #fff6e8; opacity: 0; pointer-events: none; }
+#vignette { inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.5) 100%); }
+#grain { left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay; }
+#offLine { position: absolute; left: 0; top: 539px; width: 1920px; height: 2px; background: #fff; opacity: 0; box-shadow: 0 0 12px #fff; }
+#black { position: absolute; inset: 0; background: #000; pointer-events: none; }
+#dbg { position: absolute; left: 20px; top: 16px; font: 600 24px/1 var(--mono); color: #0f0; text-shadow: 0 0 4px #000; display: none; z-index: 10; }

@@ -73,6 +73,12 @@
   --shadow: 0 2px 0 #000, 0 10px 22px rgba(0, 0, 0, 0.6);
 }
 
+/* scrollbars in the panel's colours: the app window has no browser chrome around them */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: var(--room); }
+::-webkit-scrollbar-thumb { background: var(--groove); border: 3px solid var(--room); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--faint); }
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {

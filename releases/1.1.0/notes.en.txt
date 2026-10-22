@@ -1,0 +1,2 @@
+The panel is now a normal app: its own window, taskbar button, Start menu and desktop shortcuts. No browser tabs and no offers to translate the page.
+Closing the window leaves the app in the tray, the driver keeps working as before.
